@@ -31,10 +31,8 @@ head(project2)
 
 #Histogram after transformation
 #log10(max(x+1) - x)
-hist(log(project2$forks) )
+hist(log(project2$forks + 1) )
 hist(log(log(project2$forks+1) ))
-hist(log(project2$normalizedCommits))
-hist(log(project2$OwnerFollower))
 hist(log(project2$OwnerFollower +1))
 
 #check normality - won't allow to using the number without + 1
