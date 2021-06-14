@@ -9,6 +9,9 @@ hist(project$newOwnerFollower)
 #qq plot
 qqnorm(project$forks)
 
+library("nortest")
+lillie.test(project$forks)
+
 #Linearity
 library("car")
 library("RColorBrewer")
@@ -42,7 +45,7 @@ hist(log(project3$newOwnerFollower +1))
 #check normality - won't allow to using the number without + 1
 #ks test 
 library("nortest")
-lillie.test(log(project2$forks +1))
+lillie.test(log(project3$forks +1))
 
 #extract columns into a new array 
 projectData<-project3[,c("normalizedCommits","dummyOwnerType","prjId","forks","newCommits","OwnerFollower")]
