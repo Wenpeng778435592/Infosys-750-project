@@ -78,14 +78,14 @@ icc.b
 
 #Model c1
 model.c1 <- lme(log(forks + 1)  ~  dummyOwnerType * Time ,
-                data=project2, random= ~ Time | prjId, method="ML")
+                data=project3, random= ~ Time | prjId, method="ML")
 summary(model.c1)
 ## Interaction plots
 interaction.plot(project3$Time,as.factor(project3$dummyOwnerType),log(project3$forks+1))
 
 #Model c2
 model.c2<- lme(log(forks + 1)  ~  dummyOwnerType * Time  + log(newOwnerFollower + 1) * Time ,
-               data=project2, random= ~ Time | prjId, method="ML")
+               data=project3, random= ~ Time | prjId, method="ML")
 summary(model.c2)
 
 #Model D
