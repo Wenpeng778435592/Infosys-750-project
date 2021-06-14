@@ -22,10 +22,12 @@ scatterplotMatrix(~forks +as.factor(OwnerType)+
 dummyOwnerType<-NULL
 dummyOwnerType<-(project$OwnerType=="ORG")*1
 project1<-cbind(dummyOwnerType, project)
+head(project1)
 
 normalizedCommits <- NULL
 normalizedCommits<-(project$newCommits / project$members)
 project2<-cbind(normalizedCommits, project1)
+head(project2)
 
 #replace inf with 0
 is.na(project2)<-sapply(project2, is.infinite)
@@ -33,27 +35,27 @@ project2[is.na(project2)]<-0
 
 #remove the first record for each project
 project3<-project2[project2$Time != 1, ] 
-project3
 head(project3)
+
+#extract columns into a new array 
+projectData<-project3[,c("normalizedCommits","dummyOwnerType","prjId","Time","forks","newCommits","OwnerFollower")]
+head(projectData)
 
 #Histogram after transformation
 #log10(max(x+1) - x)
+hist(log(project3$forks) )
 hist(log(project3$forks + 1) )
-hist(log(log(project3$forks+1) ))
+hist(log(project3$newOwnerFollower ))
 hist(log(project3$newOwnerFollower +1))
+
+# Random select 10 sample from the new array
+projectRandom=projectData[projectData$prjId %in% sample(unique(projectData$prjId),10),]
+head(projectRandom)
 
 #check normality - won't allow to using the number without + 1
 #ks test 
 library("nortest")
 lillie.test(log(project3$forks +1))
-
-#extract columns into a new array 
-projectData<-project3[,c("normalizedCommits","dummyOwnerType","prjId","forks","newCommits","OwnerFollower")]
-head(projectData)
-
-# Random select 10 sample from the new array
-projectRandom=projectData[projectData$prjId %in% sample(unique(projectData$prjId),10),]
-head(projectRandom)
 
 #Model A
 library(nlme)
