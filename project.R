@@ -25,7 +25,7 @@ project1<-cbind(dummyOwnerType, project)
 head(project1)
 
 normalizedCommits <- NULL
-normalizedCommits<-(project$newCommits / project$members)
+normalizedCommits<-(project1$newCommits / project1$newMembers)
 project2<-cbind(normalizedCommits, project1)
 head(project2)
 
