@@ -92,8 +92,13 @@ summary(model.c2)
 model.d <- lme(log(forks + 1)  ~ normalizedCommits * Time +dummyOwnerType*Time + log(newOwnerFollower +1) * Time ,
                data=project3, random= ~ Time | prjId, method="ML")
 summary(model.d)
-
+m4<-VarCorr(model.d)
 #Model e
 model.e <- lme(log(forks + 1)  ~ normalizedCommits +dummyOwnerType*Time +  log(newOwnerFollower +1) * Time,
                data=project3, random= ~ Time | prjId, method="ML")
 summary(model.e)
+m5<-VarCorr(model.e)
+
+#Pseudo R2
+r2<- (as.numeric(m2[1,1])-as.numeric(m5[1,1]))/as.numeric(m2[1,1])
+r2
