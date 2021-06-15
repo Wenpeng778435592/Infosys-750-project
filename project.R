@@ -94,6 +94,6 @@ model.d <- lme(log(forks + 1)  ~ normalizedCommits * Time +dummyOwnerType*Time +
 summary(model.d)
 
 #Model e
-model.e <- lme(log(forks + 1)  ~ normalizedCommits +dummyOwnerType*Time ,
+model.e <- lme(log(forks + 1)  ~ normalizedCommits +dummyOwnerType*Time +  log(newOwnerFollower +1) * Time,
                data=project3, random= ~ Time | prjId, method="ML")
 summary(model.e)
